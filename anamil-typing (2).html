@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Remas.Ai — تعلّم الكتابة على لوحة المفاتيح</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;600;700&family=Cairo:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #15132c;
+    --bg-soft: #1c1940;
+    --panel: #232057;
+    --panel-2: #2a2566;
+    --border: rgba(255,255,255,0.08);
+    --text: #ECE9FB;
+    --text-dim: #A6A0D6;
+    --purple: #9D7BFF;
+    --purple-deep: #7C5CFC;
+    --blue: #6BA8FF;
+    --lavender: #D6CCFF;
+    --mint: #5EEAB5;
+    --rose: #FF7A93;
+
+    --f1:#C792EA; /* خنصر يسار */
+    --f2:#9FA8FF; /* بنصر يسار */
+    --f3:#7EC8FF; /* وسطى يسار */
+    --f4:#6EE7DD; /* سبابة يسار */
+    --f5:#8FE3D1; /* سبابة يمين */
+    --f6:#80C9FF; /* وسطى يمين */
+    --f7:#A6A0FF; /* بنصر يمين */
+    --f8:#D9A6FF; /* خنصر يمين */
+    --thumb:#B8C4FF; /* إبهام */
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    font-family:'Cairo', sans-serif;
+    color: var(--text);
+    background: radial-gradient(circle at 15% 0%, rgba(124,92,252,0.25), transparent 45%),
+                radial-gradient(circle at 100% 30%, rgba(107,168,255,0.18), transparent 40%),
+                var(--bg);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  a{ color: inherit; }
+
+  .wrap{
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ============ Header ============ */
+  header.site{
+    position: sticky;
+    top:0;
+    z-index: 50;
+    backdrop-filter: blur(14px);
+    background: rgba(21,19,44,0.7);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 16px 0;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-family:'El Messiri', sans-serif;
+    font-weight:700;
+    font-size: 1.5rem;
+    letter-spacing: .5px;
+  }
+  .logo-mark{
+    width: 40px; height:40px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--purple-deep), var(--blue));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'El Messiri', sans-serif;
+    font-weight:700;
+    font-size:1.2rem;
+    color:#100E26;
+    box-shadow: 0 8px 24px rgba(124,92,252,.45);
+  }
+  .logo small{
+    display:block;
+    font-family:'Cairo', sans-serif;
+    font-weight:400;
+    font-size: .68rem;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+  }
+  nav.links{
+    display:flex; gap: 28px; font-size:.95rem; color: var(--text-dim);
+  }
+  nav.links a{ text-decoration:none; transition:.2s; }
+  nav.links a:hover{ color: var(--lavender); }
+
+  /* ============ Hero ============ */
+  .hero{
+    padding: 64px 0 40px;
+    display:grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 48px;
+    align-items:center;
+  }
+  .hero-wrap{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 28px;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:.8rem; color: var(--lavender);
+    background: rgba(157,123,255,0.12);
+    border: 1px solid rgba(157,123,255,0.3);
+    padding: 6px 14px; border-radius: 999px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{ content:"●"; color: var(--mint); font-size:.6rem; }
+  h1{
+    font-family:'El Messiri', sans-serif;
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    line-height:1.25;
+    margin: 0 0 18px;
+  }
+  h1 span{
+    background: linear-gradient(90deg, var(--purple), var(--blue));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color: transparent;
+  }
+  .hero p.lead{
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    max-width: 480px;
+    margin-bottom: 28px;
+  }
+  .hero-actions{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    border:none; cursor:pointer;
+    font-family:'Cairo', sans-serif;
+    font-weight:700;
+    font-size:.95rem;
+    padding: 14px 28px;
+    border-radius: 12px;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:active{ transform: translateY(1px) scale(.98); }
+  .btn-primary{
+    background: linear-gradient(120deg, var(--purple-deep), var(--blue));
+    color:#0F0D24;
+    box-shadow: 0 10px 28px rgba(124,92,252,.35);
+  }
+  .btn-primary:hover{ box-shadow: 0 14px 32px rgba(124,92,252,.5); }
+  .btn-ghost{
+    background: transparent;
+    color: var(--lavender);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover{ border-color: var(--purple); }
+
+  /* ===== Hero keyboard illustration (signature element) ===== */
+  .kb-illustration{
+    background: linear-gradient(160deg, var(--panel), var(--bg-soft));
+    border:1px solid var(--border);
+    border-radius: 22px;
+    padding: 24px;
+    box-shadow: 0 30px 60px rgba(0,0,0,.35);
+  }
+  .kb-illustration header{
+    display:flex; justify-content:space-between; align-items:center;
+    color: var(--text-dim); font-size:.8rem; margin-bottom:14px;
+  }
+  .kb-illustration header strong{ color: var(--lavender); }
+
+  /* keyboard component, used in hero + practice */
+  .keyboard{
+    direction: ltr;
+    display:flex; flex-direction:column; gap:7px;
+    background: rgba(0,0,0,0.18);
+    border-radius: 16px;
+    padding: 14px;
+  }
+  .kb-row{ display:flex; gap:7px; justify-content:center; }
+  .key{
+    --fc: var(--lavender);
+    flex:1;
+    aspect-ratio: 1/1;
+    max-width: 52px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size: .85rem;
+    font-weight:600;
+    color: var(--text);
+    background: var(--panel-2);
+    border-radius: 9px;
+    border-bottom: 3px solid var(--fc);
+    position:relative;
+    transition: transform .08s ease, box-shadow .15s ease, background .15s ease;
+    user-select:none;
+  }
+  .key.f1{ --fc: var(--f1); } .key.f2{ --fc: var(--f2); }
+  .key.f3{ --fc: var(--f3); } .key.f4{ --fc: var(--f4); }
+  .key.f5{ --fc: var(--f5); } .key.f6{ --fc: var(--f6); }
+  .key.f7{ --fc: var(--f7); } .key.f8{ --fc: var(--f8); }
+  .key.fthumb{ --fc: var(--thumb); }
+  .key.space{ max-width: none; flex:8; }
+
+  .key.active{
+    background: var(--fc);
+    color:#15132c;
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--fc) 35%, transparent), 0 8px 18px rgba(0,0,0,.35);
+    transform: translateY(-3px);
+  }
+
+  .legend{
+    display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;
+  }
+  .legend .chip{
+    display:flex; align-items:center; gap:6px;
+    font-size:.72rem; color: var(--text-dim);
+    background: rgba(255,255,255,.04);
+    border:1px solid var(--border);
+    border-radius:999px; padding:5px 10px;
+  }
+  .legend .dot{ width:10px; height:10px; border-radius:50%; }
+  .legend .dot.f1{ background: var(--f1);} .legend .dot.f2{ background: var(--f2);}
+  .legend .dot.f3{ background: var(--f3);} .legend .dot.f4{ background: var(--f4);}
+  .legend .dot.f5{ background: var(--f5);} .legend .dot.f6{ background: var(--f6);}
+  .legend .dot.f7{ background: var(--f7);} .legend .dot.f8{ background: var(--f8);}
+  .legend .dot.fthumb{ background: var(--thumb);}
+
+  /* ============ Sections generic ============ */
+  section{ padding: 50px 0; }
+  .section-head{ margin-bottom: 30px; }
+  .section-head .eyebrow{ margin-bottom:10px; }
+  h2{
+    font-family:'El Messiri', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin: 0 0 10px;
+  }
+  .section-head p{ color: var(--text-dim); max-width: 560px; }
+
+  /* ============ Lessons grid ============ */
+  .lessons-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .lesson-card{
+    background: var(--panel);
+    border:1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    cursor:pointer;
+    transition: border-color .2s ease, transform .2s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .lesson-card:hover{ border-color: var(--purple); transform: translateY(-3px); }
+  .lesson-card.active{ border-color: var(--blue); box-shadow: 0 0 0 1px var(--blue) inset; animation: cardPop .4s ease; }
+  @keyframes cardPop{
+    0%{ transform: scale(.96); }
+    60%{ transform: scale(1.02); }
+    100%{ transform: scale(1); }
+  }
+  .lesson-card.locked{ cursor:not-allowed; opacity:.55; }
+  .lesson-card.locked:hover{ transform:none; border-color: var(--border); }
+  .lesson-top{
+    display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px;
+  }
+  .lesson-num{
+    font-family:'El Messiri', sans-serif;
+    font-size:1.8rem; font-weight:700; color: var(--text-dim);
+  }
+  .lesson-status{
+    font-size:.7rem; padding:4px 10px; border-radius:999px;
+    background: rgba(255,255,255,.05); color: var(--text-dim);
+  }
+  .lesson-status.done{ background: rgba(94,234,181,.15); color: var(--mint); }
+  .lesson-status.active{ background: rgba(157,123,255,.18); color: var(--lavender); }
+  .lesson-card h3{ margin:0 0 6px; font-size:1.05rem; }
+  .lesson-card p{ margin:0 0 14px; color: var(--text-dim); font-size:.88rem; }
+  .progress-bar{
+    height:6px; border-radius:999px; background: rgba(255,255,255,.06); overflow:hidden;
+  }
+  .progress-bar > span{
+    display:block; height:100%; border-radius:999px;
+    background: linear-gradient(90deg, var(--purple-deep), var(--blue));
+    width:0%; transition: width .5s ease;
+  }
+  .lesson-meta{ display:flex; justify-content:space-between; font-size:.72rem; color: var(--text-dim); margin-top:8px; }
+
+  /* ============ Practice section ============ */
+  .practice-shell{
+    background: var(--panel);
+    border:1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+  }
+  .practice-shell.lesson-enter{
+    animation: lessonSlide .45s cubic-bezier(.22,.61,.36,1);
+  }
+  @keyframes lessonSlide{
+    from{ opacity:0; transform: translateY(18px) scale(.99); }
+    to{ opacity:1; transform: translateY(0) scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .practice-shell.lesson-enter, .lesson-card.active{ animation:none; }
+  }
+  .practice-head{
+    display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:14px; margin-bottom:20px;
+  }
+  .practice-head h3{ margin:0 0 4px; font-family:'El Messiri', sans-serif; font-size:1.4rem; }
+  .practice-head p{ margin:0; color: var(--text-dim); font-size:.9rem; }
+
+  .stats{ display:flex; gap:14px; flex-wrap:wrap; }
+  .stat{
+    background: rgba(255,255,255,.04);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding: 10px 18px;
+    text-align:center; min-width:90px;
+  }
+  .stat b{ display:block; font-family:'JetBrains Mono', monospace; font-size:1.2rem; color: var(--lavender); }
+  .stat span{ font-size:.7rem; color: var(--text-dim); }
+
+  .text-display{
+    direction: ltr; text-align:left;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 1.35rem;
+    line-height: 2.1;
+    background: rgba(0,0,0,.2);
+    border:1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+    margin: 22px 0;
+    letter-spacing: 1px;
+    word-break: break-all;
+  }
+  .text-display .ch{ position:relative; transition: color .1s; }
+  .text-display .ch.pending{ color: var(--text-dim); }
+  .text-display .ch.correct{ color: var(--mint); animation: charPop .18s ease; }
+  @keyframes charPop{
+    0%{ transform: translateY(0) scale(1); }
+    40%{ transform: translateY(-4px) scale(1.15); }
+    100%{ transform: translateY(0) scale(1); }
+  }
+  .text-display .ch.incorrect{ color: var(--rose); text-decoration: underline wavy var(--rose); }
+  .text-display .ch.current{ color: var(--text); background: rgba(157,123,255,.22); border-radius:4px; }
+  .text-display .ch.current::after{
+    content:""; position:absolute; right:-1px; top:2px; bottom:2px; width:2px;
+    background: var(--purple); animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+  .text-display .ch.space.current{ outline: 1px dashed var(--purple); }
+
+  .text-wrap{ position: relative; }
+  .start-overlay{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+    background: rgba(21,19,44,0.78);
+    backdrop-filter: blur(6px);
+    border-radius: 14px;
+    z-index: 5;
+    text-align:center;
+    padding: 20px;
+  }
+  .start-overlay p{ margin:0; color: var(--text-dim); font-size:.9rem; max-width: 380px; }
+  .start-overlay.hidden{ display:none; }
+
+  .finger-hint{
+    display:flex; align-items:center; gap:10px; margin-bottom:14px;
+    font-size:.9rem; color: var(--text-dim);
+  }
+  .finger-hint .badge{
+    --fc: var(--lavender);
+    width:14px; height:14px; border-radius:4px; background: var(--fc);
+  }
+
+  .practice-footer{
+    display:flex; justify-content:space-between; align-items:center; margin-top:20px; flex-wrap:wrap; gap:14px;
+  }
+
+  /* ============ Remas.Ai panel ============ */
+  .remas-card{
+    background: linear-gradient(160deg, var(--panel-2), var(--panel));
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:20px;
+    display:flex; gap:14px; align-items:flex-start;
+    margin-top: 26px;
+  }
+  .remas-avatar{
+    width:46px; height:46px; flex-shrink:0;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--purple), var(--blue));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'El Messiri', sans-serif; font-weight:700; color:#15132c;
+    box-shadow: 0 6px 18px rgba(124,92,252,.4);
+  }
+  .remas-body b{ font-family:'El Messiri', sans-serif; }
+  .remas-body p{ margin:6px 0 0; color: var(--text-dim); font-size:.92rem; }
+
+  /* ============ Overview / progress ring ============ */
+  .overview{
+    display:grid; grid-template-columns: auto 1fr; gap: 40px; align-items:center;
+    background: var(--panel);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding: 30px;
+  }
+  .ring-wrap{ position:relative; width:160px; height:160px; }
+  .ring-wrap svg{ transform: rotate(-90deg); }
+  .ring-bg{ stroke: rgba(255,255,255,.06); }
+  .ring-fg{ stroke: url(#ringGrad); stroke-linecap:round; transition: stroke-dashoffset .6s ease; }
+  .ring-label{
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  }
+  .ring-label b{ font-family:'El Messiri', sans-serif; font-size:1.8rem; }
+  .ring-label span{ font-size:.75rem; color: var(--text-dim); }
+  .overview-stats{ display:flex; gap:30px; flex-wrap:wrap; margin-bottom:14px; }
+  .overview-stats .stat{ min-width:110px; }
+
+  footer.site{
+    border-top:1px solid var(--border);
+    padding: 30px 0; text-align:center; color: var(--text-dim); font-size:.85rem;
+  }
+
+  @media (max-width: 920px){
+    .hero-wrap{ grid-template-columns:1fr !important; }
+    .lessons-grid{ grid-template-columns: repeat(2,1fr); }
+    .overview{ grid-template-columns:1fr; text-align:center; justify-items:center; }
+    .key{ font-size:.7rem; }
+  }
+  @media (max-width: 600px){
+    .lessons-grid{ grid-template-columns: 1fr; }
+    .text-display{ font-size:1rem; }
+    .key{ max-width:34px; }
+    .key.space{ flex:6; }
+    nav.links{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <div class="logo">
+      <div class="logo-mark">R</div>
+      <div>
+        Remas.Ai
+        <small>TYPING ACADEMY</small>
+      </div>
+    </div>
+    <nav class="links">
+      <a href="#lessons">الدروس</a>
+      <a href="#practice">التمرين</a>
+      <a href="#overview">تقدّمك</a>
+      <a href="#remas">Remas.Ai</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-wrap" style="display:grid; grid-template-columns: 1.1fr 1fr; gap:48px; align-items:center;">
+    <div>
+      <div class="eyebrow">منصة تعليمية تفاعلية بمتابعة Remas.Ai</div>
+      <h1>تعلّم <span>الكتابة السريعة</span> بأصابعك العشرة، بثقة وبدون نظر</h1>
+      <p class="lead">
+        دروس متدرجة تبدأ من وضع يدك الصحيح على لوحة المفاتيح، وتنتهي بكتابة جمل كاملة بسرعة ودقة عالية.
+        كل لوحة مفاتيح ملوّنة حسب الإصبع المسؤول، ومساعدتك الذكية Remas.Ai ترصد تقدمك وتقدّم لك ملاحظات بعد كل درس.
+      </p>
+      <div class="hero-actions">
+        <a href="#practice" class="btn btn-primary">ابدأ أول درس الآن</a>
+        <a href="#lessons" class="btn btn-ghost">استعرض الدروس</a>
+      </div>
+    </div>
+
+    <div class="kb-illustration">
+      <header>
+        <span>دليل وضع الأصابع</span>
+        <strong>لوحة المفاتيح المُلوّنة</strong>
+      </header>
+      <div class="keyboard" id="heroKeyboard"></div>
+      <div class="legend" id="heroLegend"></div>
+    </div>
+  </div>
+</section>
+
+<section id="lessons">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">الدروس المتاحة</div>
+      <h2>الدروس المتاحة لك الآن</h2>
+      <p>
+        <span id="availableCount">درس 1 من 6 متاح</span> — أكمل كل درس لفتح الدرس التالي.
+        الدروس المقفلة تظهر باهتة حتى تنهي ما قبلها.
+      </p>
+    </div>
+    <div class="lessons-grid" id="lessonsGrid"></div>
+  </div>
+</section>
+
+<section id="practice">
+  <div class="wrap">
+    <div class="practice-shell">
+      <div class="practice-head">
+        <div>
+          <h3 id="practiceTitle">—</h3>
+          <p id="practiceSubtitle">—</p>
+        </div>
+        <div class="stats">
+          <div class="stat"><b id="statWpm">0</b><span>كلمة/دقيقة</span></div>
+          <div class="stat"><b id="statAcc">100%</b><span>الدقة</span></div>
+          <div class="stat"><b id="statTime">0:00</b><span>الوقت</span></div>
+          <div class="stat"><b id="statProgress">0%</b><span>تقدّم الدرس</span></div>
+        </div>
+      </div>
+
+      <div class="finger-hint">
+        <div class="badge" id="fingerBadge"></div>
+        <span id="fingerText">انقر داخل مربع النص ثم ابدأ الكتابة — لا تنظر إلى لوحة المفاتيح!</span>
+      </div>
+
+      <div class="text-wrap">
+        <div class="text-display" id="textDisplay" tabindex="0"></div>
+        <div class="start-overlay" id="startOverlay">
+          <button class="btn btn-primary" id="startBtn">بدء</button>
+          <p>اضبط وضع أصابعك على لوحة المفاتيح، ثم اضغط "بدء" عندما تكون جاهزًا لبدء الدرس.</p>
+        </div>
+      </div>
+
+      <div class="keyboard" id="practiceKeyboard"></div>
+
+      <div class="practice-footer">
+        <button class="btn btn-ghost" id="retryBtn">إعادة الدرس</button>
+        <button class="btn btn-primary" id="nextBtn" disabled>الدرس التالي</button>
+      </div>
+
+      <div class="remas-card">
+        <div class="remas-avatar">R</div>
+        <div class="remas-body">
+          <b>Remas.Ai</b>
+          <p id="remasMessage">أهلاً بك! اختر درسًا وابدأ، وسأكون هنا أراقب تقدمك وأخبرك برأيي بعد كل تمرين.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="overview">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">لوحة التقدم</div>
+      <h2>أداؤك العام في Remas.Ai</h2>
+      <p>ملخص شامل لما أنجزته حتى الآن، مع تقييم Remas.Ai العام لمستواك.</p>
+    </div>
+    <div class="overview">
+      <div class="ring-wrap">
+        <svg width="160" height="160">
+          <defs>
+            <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#9D7BFF"/>
+              <stop offset="100%" stop-color="#6BA8FF"/>
+            </linearGradient>
+          </defs>
+          <circle class="ring-bg" cx="80" cy="80" r="68" fill="none" stroke-width="14"/>
+          <circle class="ring-fg" id="ringFg" cx="80" cy="80" r="68" fill="none" stroke-width="14"
+                  stroke-dasharray="427" stroke-dashoffset="427"/>
+        </svg>
+        <div class="ring-label">
+          <b id="ringPercent">0%</b>
+          <span>الدروس المكتملة</span>
+        </div>
+      </div>
+      <div>
+        <div class="overview-stats">
+          <div class="stat"><b id="ovLessons">0 / 6</b><span>دروس منتهية</span></div>
+          <div class="stat"><b id="ovWpm">0</b><span>أفضل سرعة</span></div>
+          <div class="stat"><b id="ovAcc">0%</b><span>متوسط الدقة</span></div>
+          <div class="stat"><b id="ovScore">0 / 100</b><span>نقاطك</span></div>
+        </div>
+        <div class="remas-card" id="remas" style="margin-top:0;">
+          <div class="remas-avatar">R</div>
+          <div class="remas-body">
+            <b>رأي Remas.Ai في مستواك</b>
+            <p id="remasOverview">لم تبدأ التمرين بعد. أكمل أول درس حتى أستطيع تقييم مستواك بدقة.</p>
+          </div>
+        </div>
+        <div class="remas-card thanks-card">
+          <div class="remas-avatar">R</div>
+          <div class="remas-body">
+            <b>شكرًا لمشاركتك في Remas.Ai</b>
+            <p id="remasThanks">نقدّر وقتك معنا. كل تمرين تنجزه يقرّبك من هدفك في الكتابة السريعة — استمر، ولا تتوقف عن المحاولة.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    Remas.Ai — منصة تعليم الكتابة على لوحة المفاتيح · بمتابعة وتقييم Remas.Ai
+  </div>
+</footer>
+
+<script>
+/* ===================== Keyboard layout & finger map ===================== */
+const KB_ROWS = [
+  { keys: ['`','1','2','3','4','5','6','7','8','9','0','-'],
+    fingers: ['f1','f1','f2','f3','f4','f4','f5','f5','f6','f7','f8','f8'] },
+  { keys: ['q','w','e','r','t','y','u','i','o','p'],
+    fingers: ['f1','f2','f3','f4','f4','f5','f5','f6','f7','f8'] },
+  { keys: ['a','s','d','f','g','h','j','k','l',';'],
+    fingers: ['f1','f2','f3','f4','f4','f5','f5','f6','f7','f8'] },
+  { keys: ['z','x','c','v','b','n','m',',','.','/'],
+    fingers: ['f1','f2','f3','f4','f4','f5','f5','f6','f7','f8'] },
+];
+const SPACE_FINGER = 'fthumb';
+
+const FINGER_NAMES = {
+  f1:'الخنصر الأيسر', f2:'البنصر الأيسر', f3:'الوسطى اليسرى', f4:'السبابة اليسرى',
+  f5:'السبابة اليمنى', f6:'الوسطى اليمنى', f7:'البنصر الأيمن', f8:'الخنصر الأيمن',
+  fthumb:'الإبهام'
+};
+
+// build char -> finger lookup
+const CHAR_FINGER = {};
+KB_ROWS.forEach(row => row.keys.forEach((k,i) => CHAR_FINGER[k] = row.fingers[i]));
+CHAR_FINGER[' '] = SPACE_FINGER;
+
+function buildKeyboard(container, interactive){
+  container.innerHTML = '';
+  KB_ROWS.forEach(row => {
+    const rowEl = document.createElement('div');
+    rowEl.className = 'kb-row';
+    row.keys.forEach((k,i) => {
+      const keyEl = document.createElement('div');
+      keyEl.className = 'key ' + row.fingers[i];
+      keyEl.dataset.char = k;
+      keyEl.textContent = k;
+      rowEl.appendChild(keyEl);
+    });
+    container.appendChild(rowEl);
+  });
+}
+
+function buildLegend(container){
+  container.innerHTML = '';
+  Object.keys(FINGER_NAMES).forEach(f => {
+    const chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.innerHTML = `<span class="dot ${f}"></span> ${FINGER_NAMES[f]}`;
+    container.appendChild(chip);
+  });
+}
+
+/* ===================== Lessons data ===================== */
+const LESSONS = [
+  {
+    title: 'صف الارتكاز',
+    subtitle: 'الأساس الذي تنطلق منه كل أصابعك: A S D F J K L ;',
+    text: 'asdf jkl; asdf jkl; ask lad fall;'
+  },
+  {
+    title: 'الصف العلوي',
+    subtitle: 'مدّ أصابعك للأعلى دون رفعها من صف الارتكاز: Q W E R T Y U I O P',
+    text: 'qwer tyui op quiet write your type'
+  },
+  {
+    title: 'الصف السفلي',
+    subtitle: 'تمرين النزول بثقة دون النظر: Z X C V B N M , . /',
+    text: 'zxcv bnm,./ zoom mix vex numb'
+  },
+  {
+    title: 'الأرقام',
+    subtitle: 'تعرّف على صف الأرقام أعلى لوحة المفاتيح دون النظر إليه',
+    text: '123 456 789 0 12 34 56 90'
+  },
+  {
+    title: 'كلمات شائعة',
+    subtitle: 'كلمات متكررة في الكتابة اليومية تجمع كل الصفوف معًا',
+    text: 'the quick fox runs and the lazy dog sleeps'
+  },
+  {
+    title: 'جمل وسرعة',
+    subtitle: 'اختبار قصير لقياس سرعتك ودقتك بجملة كاملة',
+    text: 'practice a little every day to type faster.'
+  },
+];
+
+/* ===================== State ===================== */
+const state = {
+  current: 0,
+  charIndex: 0,
+  errors: 0,
+  startTime: null,
+  timerInterval: null,
+  finished: false,
+  results: LESSONS.map(() => null), // {wpm, accuracy}
+};
+
+/* ===================== Init keyboards ===================== */
+buildKeyboard(document.getElementById('heroKeyboard'), false);
+buildLegend(document.getElementById('heroLegend'));
+buildKeyboard(document.getElementById('practiceKeyboard'), true);
+
+/* ===================== Lessons grid ===================== */
+const lessonsGrid = document.getElementById('lessonsGrid');
+
+function renderLessonsGrid(){
+  lessonsGrid.innerHTML = '';
+  let availableCount = 0;
+  LESSONS.forEach((lesson, i) => {
+    const result = state.results[i];
+    const locked = i > 0 && !state.results[i-1];
+    const isActive = i === state.current;
+    if(!locked) availableCount++;
+
+    const card = document.createElement('div');
+    card.className = 'lesson-card' + (isActive ? ' active' : '') + (locked ? ' locked' : '');
+
+    let statusHtml = '<span class="lesson-status">غير مكتمل</span>';
+    if(result) statusHtml = '<span class="lesson-status done">مكتمل</span>';
+    else if(isActive) statusHtml = '<span class="lesson-status active">جارٍ الآن</span>';
+    if(locked) statusHtml = '<span class="lesson-status">مقفل</span>';
+
+    const progressPct = result ? 100 : (isActive ? Math.round((state.charIndex / lesson.text.length) * 100) : 0);
+
+    card.innerHTML = `
+      <div class="lesson-top">
+        <span class="lesson-num">0${i+1}</span>
+        ${statusHtml}
+      </div>
+      <h3>${lesson.title}</h3>
+      <p>${lesson.subtitle}</p>
+      <div class="progress-bar"><span style="width:${progressPct}%"></span></div>
+      <div class="lesson-meta">
+        <span>${result ? 'السرعة: ' + result.wpm + ' ك/د' : 'لم يبدأ'}</span>
+        <span>${result ? 'الدقة: ' + result.accuracy + '%' : ''}</span>
+      </div>
+    `;
+
+    if(!locked){
+      card.addEventListener('click', () => loadLesson(i));
+    }
+    lessonsGrid.appendChild(card);
+  });
+
+  const availableCountEl = document.getElementById('availableCount');
+  if(availableCountEl){
+    availableCountEl.textContent = `${availableCount} من ${LESSONS.length} دروس متاحة الآن`;
+  }
+}
+
+/* ===================== Practice rendering ===================== */
+const textDisplay = document.getElementById('textDisplay');
+const practiceTitle = document.getElementById('practiceTitle');
+const practiceSubtitle = document.getElementById('practiceSubtitle');
+const statWpm = document.getElementById('statWpm');
+const statAcc = document.getElementById('statAcc');
+const statTime = document.getElementById('statTime');
+const statProgress = document.getElementById('statProgress');
+const fingerText = document.getElementById('fingerText');
+const fingerBadge = document.getElementById('fingerBadge');
+const remasMessage = document.getElementById('remasMessage');
+const retryBtn = document.getElementById('retryBtn');
+const nextBtn = document.getElementById('nextBtn');
+const startOverlay = document.getElementById('startOverlay');
+const startBtn = document.getElementById('startBtn');
+
+function loadLesson(i){
+  state.current = i;
+  state.charIndex = 0;
+  state.errors = 0;
+  state.startTime = null;
+  state.finished = false;
+  state.locked = true;
+  if(state.timerInterval) clearInterval(state.timerInterval);
+  state.timerInterval = null;
+
+  const lesson = LESSONS[i];
+  practiceTitle.textContent = `الدرس ${i+1}: ${lesson.title}`;
+  practiceSubtitle.textContent = lesson.subtitle;
+
+  renderText();
+  updateStats();
+  updateFingerHint();
+  remasMessage.textContent = 'هذا الدرس جاهز. اضبط وضع أصابعك على لوحة المفاتيح، ثم اضغط زر "بدء" لتبدأ العد والتمرين.';
+  nextBtn.disabled = true;
+  startOverlay.classList.remove('hidden');
+  renderLessonsGrid();
+
+  // retrigger entrance animation for the practice card
+  const shell = document.querySelector('.practice-shell');
+  shell.classList.remove('lesson-enter');
+  void shell.offsetWidth; // force reflow so the animation restarts
+  shell.classList.add('lesson-enter');
+
+  // smooth scroll the practice section into view when switching lessons
+  document.getElementById('practice').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderText(){
+  const lesson = LESSONS[state.current];
+  textDisplay.innerHTML = '';
+  [...lesson.text].forEach((ch, idx) => {
+    const span = document.createElement('span');
+    let cls = 'ch pending';
+    if(idx < state.charIndex) cls = 'ch correct';
+    if(idx === state.charIndex) cls += ' current';
+    if(ch === ' ') cls += ' space';
+    span.className = cls;
+    span.textContent = ch;
+    span.dataset.index = idx;
+    textDisplay.appendChild(span);
+  });
+}
+
+function updateFingerHint(){
+  const lesson = LESSONS[state.current];
+  const ch = lesson.text[state.charIndex];
+  // clear active keys
+  document.querySelectorAll('#practiceKeyboard .key.active').forEach(k => k.classList.remove('active'));
+
+  if(ch === undefined) return;
+
+  const finger = CHAR_FINGER[ch] || 'f4';
+  const targetChar = ch === ' ' ? ' ' : ch;
+  const keyEl = [...document.querySelectorAll('#practiceKeyboard .key')]
+    .find(k => k.dataset.char === targetChar);
+  if(keyEl) keyEl.classList.add('active');
+
+  fingerBadge.style.background = `var(--${finger})`;
+  const label = ch === ' ' ? '"المسافة"' : `"${ch}"`;
+  fingerText.textContent = `الحرف القادم ${label} — استخدم ${FINGER_NAMES[finger]}`;
+}
+
+function updateStats(){
+  const lesson = LESSONS[state.current];
+  const total = lesson.text.length;
+  const typed = state.charIndex;
+  const correct = typed - state.errors > 0 ? typed - state.errors : typed; // errors counted cumulatively, not subtracted from typed directly
+  const accuracy = (typed + state.errors) > 0
+    ? Math.max(0, Math.round((typed / (typed + state.errors)) * 100))
+    : 100;
+
+  statAcc.textContent = (state.errors === 0 ? 100 : accuracy) + '%';
+  statProgress.textContent = Math.round((typed/total)*100) + '%';
+
+  if(state.startTime){
+    const elapsedMin = (Date.now() - state.startTime) / 60000;
+    const wpm = elapsedMin > 0 ? Math.round((typed/5) / elapsedMin) : 0;
+    statWpm.textContent = wpm;
+    const totalSec = Math.floor((Date.now() - state.startTime)/1000);
+    statTime.textContent = Math.floor(totalSec/60) + ':' + String(totalSec%60).padStart(2,'0');
+  }
+}
+
+/* ===================== Typing logic ===================== */
+textDisplay.addEventListener('keydown', (e) => {
+  if(state.finished || state.locked) return;
+  const lesson = LESSONS[state.current];
+  const expected = lesson.text[state.charIndex];
+
+  // ignore modifier-only / navigation keys
+  if(e.key.length > 1 && e.key !== 'Backspace' && e.key !== ' ') return;
+
+  e.preventDefault();
+
+  if(!state.startTime){
+    state.startTime = Date.now();
+    state.timerInterval = setInterval(updateStats, 500);
+  }
+
+  if(e.key === 'Backspace'){
+    if(state.charIndex > 0){
+      state.charIndex--;
+      const spans = textDisplay.querySelectorAll('.ch');
+      spans[state.charIndex].className = 'ch current' + (lesson.text[state.charIndex]===' ' ? ' space' : '');
+      if(spans[state.charIndex+1]) spans[state.charIndex+1].classList.remove('current');
+      updateFingerHint();
+      updateStats();
+    }
+    return;
+  }
+
+  const typedChar = e.key === ' ' ? ' ' : e.key;
+  const spans = textDisplay.querySelectorAll('.ch');
+  const currentSpan = spans[state.charIndex];
+
+  if(typedChar === expected){
+    currentSpan.className = 'ch correct' + (expected===' ' ? ' space' : '');
+    state.charIndex++;
+    if(spans[state.charIndex]){
+      spans[state.charIndex].classList.add('current');
+    }
+  } else {
+    state.errors++;
+    currentSpan.className = 'ch incorrect current' + (expected===' ' ? ' space' : '');
+    setTimeout(() => {
+      currentSpan.classList.remove('incorrect');
+    }, 180);
+  }
+
+  updateFingerHint();
+  updateStats();
+  renderLessonsGrid();
+
+  if(state.charIndex >= lesson.text.length){
+    finishLesson();
+  }
+});
+
+function finishLesson(){
+  state.finished = true;
+  clearInterval(state.timerInterval);
+  document.querySelectorAll('#practiceKeyboard .key.active').forEach(k => k.classList.remove('active'));
+
+  const lesson = LESSONS[state.current];
+  const elapsedMin = Math.max((Date.now() - state.startTime) / 60000, 0.05);
+  const wpm = Math.round((lesson.text.length/5) / elapsedMin);
+  const accuracy = Math.max(0, Math.round((lesson.text.length / (lesson.text.length + state.errors)) * 100));
+
+  state.results[state.current] = { wpm, accuracy };
+  statWpm.textContent = wpm;
+  statAcc.textContent = accuracy + '%';
+  statProgress.textContent = '100%';
+
+  remasMessage.textContent = remasLessonComment(wpm, accuracy);
+  nextBtn.disabled = state.current >= LESSONS.length - 1;
+
+  renderLessonsGrid();
+  updateOverview();
+}
+
+function remasLessonComment(wpm, accuracy){
+  if(accuracy === 100 && wpm >= 25){
+    return `أداء رائع! دقّتك 100% وسرعتك ${wpm} كلمة في الدقيقة. أنت تبني عادة كتابة سليمة منذ البداية — استمر على هذا المستوى.`;
+  }
+  if(accuracy >= 95){
+    return `دقّة ممتازة (${accuracy}%) وسرعة ${wpm} كلمة في الدقيقة. حاول الآن رفع السرعة تدريجيًا مع الحفاظ على هذه الدقة.`;
+  }
+  if(accuracy >= 80){
+    return `دقّتك ${accuracy}% وسرعتك ${wpm} كلمة في الدقيقة — مستوى جيد. أنصحك بإعادة هذا الدرس مرة واحدة قبل الانتقال للتالي لتثبيت وضع الأصابع.`;
+  }
+  return `دقّتك ${accuracy}% فقط وسرعتك ${wpm} كلمة في الدقيقة. لا بأس، الكتابة باللمس تحتاج وقتًا. أعد الدرس وركّز على الضغط على المفتاح الصحيح أكثر من التركيز على السرعة.`;
+}
+
+/* ===================== Buttons ===================== */
+startBtn.addEventListener('click', () => {
+  state.locked = false;
+  startOverlay.classList.add('hidden');
+  remasMessage.textContent = 'بدأنا! ضع أصابعك في وضعها الصحيح واكتب بدون النظر إلى لوحة المفاتيح.';
+  textDisplay.focus();
+});
+
+retryBtn.addEventListener('click', () => loadLesson(state.current));
+nextBtn.addEventListener('click', () => {
+  if(state.current < LESSONS.length - 1) loadLesson(state.current + 1);
+});
+
+/* ===================== Overview ===================== */
+const ringFg = document.getElementById('ringFg');
+const ringPercent = document.getElementById('ringPercent');
+const ovLessons = document.getElementById('ovLessons');
+const ovWpm = document.getElementById('ovWpm');
+const ovAcc = document.getElementById('ovAcc');
+const ovScore = document.getElementById('ovScore');
+const remasOverview = document.getElementById('remasOverview');
+const remasThanks = document.getElementById('remasThanks');
+const CIRC = 2 * Math.PI * 68;
+ringFg.setAttribute('stroke-dasharray', CIRC.toFixed(0));
+
+function updateOverview(){
+  const completed = state.results.filter(Boolean);
+  const total = LESSONS.length;
+  const pct = Math.round((completed.length/total)*100);
+
+  const offset = CIRC - (CIRC * pct/100);
+  ringFg.setAttribute('stroke-dashoffset', offset.toFixed(1));
+  ringPercent.textContent = pct + '%';
+
+  ovLessons.textContent = `${completed.length} / ${total}`;
+  ovWpm.textContent = completed.length ? Math.max(...completed.map(r=>r.wpm)) : 0;
+  ovAcc.textContent = completed.length
+    ? Math.round(completed.reduce((a,r)=>a+r.accuracy,0)/completed.length) + '%'
+    : '0%';
+
+  const score = computeScore(completed, total);
+  ovScore.textContent = `${score} / 100`;
+
+  remasOverview.textContent = remasOverviewComment(completed, total);
+  remasThanks.textContent = remasThanksMessage(completed, score);
+}
+
+// score out of 100: 40 points for completion ratio, 40 for average accuracy, 20 for speed
+function computeScore(completed, total){
+  if(completed.length === 0) return 0;
+  const completionPart = (completed.length/total) * 40;
+  const avgAcc = completed.reduce((a,r)=>a+r.accuracy,0)/completed.length;
+  const accuracyPart = (avgAcc/100) * 40;
+  const bestWpm = Math.max(...completed.map(r=>r.wpm));
+  const speedPart = Math.min(bestWpm, 40)/40 * 20;
+  return Math.round(completionPart + accuracyPart + speedPart);
+}
+
+function remasThanksMessage(completed, score){
+  if(completed.length === 0){
+    return 'شكرًا لانضمامك إلى Remas.Ai! ابدأ أول درس وستظهر نقاطك من 100 هنا، مع كلمات تحفيزية تواكب تقدمك.';
+  }
+  if(score >= 90){
+    return `شكرًا على مشاركتك المميزة في Remas.Ai! نقاطك ${score} من 100 — مستوى رائع جدًا، أنت قريب من الاحتراف الكامل. واثقون أنك ستصل إلى 100 قريبًا.`;
+  }
+  if(score >= 70){
+    return `نقدّر التزامك في Remas.Ai! نقاطك ${score} من 100 — تقدّم ملحوظ ومُشجّع. استمر بهذا المعدّل وستلاحظ فرقًا كبيرًا في سرعتك ودقتك قريبًا.`;
+  }
+  if(score >= 40){
+    return `شكرًا لمشاركتك في Remas.Ai، نقاطك حتى الآن ${score} من 100. كل تمرين تكمله يرفع نقاطك خطوة إضافية — لا تتوقف، التحسن يأتي مع التكرار.`;
+  }
+  return `شكرًا لبدايتك معنا في Remas.Ai! نقاطك الحالية ${score} من 100، وهذا طبيعي تمامًا في البداية. واصل التمرين بانتظام وستشاهد نقاطك ترتفع بسرعة.`;
+}
+
+function remasOverviewComment(completed, total){
+  if(completed.length === 0){
+    return 'لم تبدأ التمرين بعد. أكمل أول درس حتى أستطيع تقييم مستواك بدقة.';
+  }
+  const avgAcc = Math.round(completed.reduce((a,r)=>a+r.accuracy,0)/completed.length);
+  const bestWpm = Math.max(...completed.map(r=>r.wpm));
+
+  if(completed.length === total){
+    if(avgAcc >= 95 && bestWpm >= 35){
+      return `أنهيت جميع الدروس بمتوسط دقة ${avgAcc}% وأفضل سرعة ${bestWpm} كلمة/دقيقة — مستوى محترف بالفعل! يمكنك الآن التركيز على نصوص أطول لزيادة ثباتك في السرعة.`;
+    }
+    return `أنهيت جميع الدروس بمتوسط دقة ${avgAcc}% وأفضل سرعة ${bestWpm} كلمة/دقيقة. أداء جيد جدًا — أقترح إعادة الدروس التي كانت دقتك فيها أقل من 90% لتثبيت المهارة.`;
+  }
+
+  if(avgAcc >= 95){
+    return `أنجزت ${completed.length} من ${total} دروس بمتوسط دقة ${avgAcc}% وأفضل سرعة ${bestWpm} كلمة/دقيقة. أنت في الطريق الصحيح، تابع بهذا الانضباط.`;
+  }
+  if(avgAcc >= 80){
+    return `أنجزت ${completed.length} من ${total} دروس بمتوسط دقة ${avgAcc}%. مستواك جيد لكن لا يزال هناك مجال لتحسين الدقة قبل زيادة السرعة.`;
+  }
+  return `أنجزت ${completed.length} من ${total} دروس، لكن متوسط دقتك ${avgAcc}% منخفض نسبيًا. أنصحك بالتركيز على الدقة أولًا — السرعة ستأتي تلقائيًا مع التمرين المنتظم.`;
+}
+
+/* ===================== Boot ===================== */
+loadLesson(0);
+updateOverview();
+</script>
+</body>
+</html>
